@@ -1,5 +1,7 @@
 name: Lint Built and Test
-on: push
+on:
+  push:
+    branches: [master]
 jobs:
   Actions:
     runs-on: ubuntu-latest
