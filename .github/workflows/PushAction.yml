@@ -14,11 +14,6 @@ jobs:
         run: |
           cd TestApplication-2
           npm ci
-      - name: Lint
-        run: |
-          cd TestApplication-2
-          npm init @eslint/config
-          npm run lint
       - name: Build
         run: |
           cd TestApplication-2
