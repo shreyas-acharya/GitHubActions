@@ -18,7 +18,7 @@ jobs:
         run: |
           cd TestApplication-2
           npm lint
-  Build and Test:
+  Build_and_Test:
     runs-on: ubuntu-latest
     steps:
       - name: Fetch Code
