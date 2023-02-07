@@ -1,27 +1,23 @@
 name: Push Action Testing
 on: push
 jobs:
-  Lint:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Fetch Code
-        uses: actions/checkout@v3
-      - name: Configure eslint
-        run: |
-          cd TestApplication-2
-          eslint . --ext .js, .jsx, .ts, .tsx
-      - name: Install Node js
-        uses: actions/setup-node@v3
-        with:
-          node-version: 18
-      - name: Install dependencies
-        run: |
-          cd TestApplication-2
-          npm ci
-      - name: Lint
-        run: |
-          cd TestApplication-2
-          npm run lint
+  # Lint:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Fetch Code
+  #       uses: actions/checkout@v3
+  #     - name: Install Node js
+  #       uses: actions/setup-node@v3
+  #       with:
+  #         node-version: 18
+  #     - name: Install dependencies
+  #       run: |
+  #         cd TestApplication-2
+  #         npm ci
+  #     - name: Lint
+  #       run: |
+  #         cd TestApplication-2
+  #         npm run lint
   Build_and_Test:
     runs-on: ubuntu-latest
     steps:

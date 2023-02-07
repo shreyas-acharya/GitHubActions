@@ -1,5 +1,5 @@
 name: Issue Action Testing
-on:
+on: issue_comment
 jobs:
   Issue:
     runs-on: ubuntu-latest
