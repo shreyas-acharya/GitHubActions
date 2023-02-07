@@ -1,0 +1,41 @@
+name: Push Action Testing
+on: push
+jobs:
+  Lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Fetch Code
+        uses: actions/checkout@v3
+      - name: Install Node js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+      - name: Install dependencies
+        run: |
+          cd TestApplication-2
+          npm ci
+      - name: Lint
+        run: |
+          cd TestApplication-2
+          npm lint
+  Build and Test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Fetch Code
+        uses: actions/checkout@v3
+      - name: Install Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+      - name: Install dependencies
+        run: |
+          cd TestApplication-2
+          npm ci
+      - name: Build
+        run: |
+          cd TestApplication-2
+          npm build
+      - name: Test
+        run: |
+          cd TestApplication-2
+          npm test
