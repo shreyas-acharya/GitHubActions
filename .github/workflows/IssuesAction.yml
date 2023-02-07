@@ -6,6 +6,6 @@ jobs:
     steps:
       - name: Print Issue
         run: |
-          echo Issue number $NUMBER
+          echo Issue number - $NUMBER
         env:
           NUMBER: ${{ github.event.issue.number }}
