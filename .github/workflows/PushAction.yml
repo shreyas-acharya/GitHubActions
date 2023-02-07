@@ -1,7 +1,7 @@
 name: Lint Built and Test
 on: push
 jobs:
-  Lint:
+  Actions:
     runs-on: ubuntu-latest
     steps:
       - name: Retrieve code
@@ -18,37 +18,11 @@ jobs:
         run: |
           cd TestApplication-2
           npm run lint
-   Build:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Retrieve code
-        uses: actions/checkout@v3
-      - name: Install Node js
-        uses: actions/setup-node@v3
-        with:
-          node-version: 18
-      - name: Install dependencies
-        run: |
-          cd TestApplication-2
-          npm ci
-      - name: Build 
+      - name: Build
         run: |
           cd TestApplication-2
           npm run build
-    Test:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Retrieve code
-        uses: actions/checkout@v3
-      - name: Install Node js
-        uses: actions/setup-node@v3
-        with:
-          node-version: 18
-      - name: Install dependencies
-        run: |
-          cd TestApplication-2
-          npm ci
-      - name: Test 
+      - name: Test
         run: |
           cd TestApplication-2
           npm run test
