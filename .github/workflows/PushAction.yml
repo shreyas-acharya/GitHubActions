@@ -9,7 +9,7 @@ jobs:
       - name: Configure eslint
         run: |
           cd TestApplication-2
-          eslint --init
+          eslint . --ext .js, .jsx, .ts, .tsx
       - name: Install Node js
         uses: actions/setup-node@v3
         with:
