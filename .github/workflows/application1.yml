@@ -3,9 +3,6 @@ on:
   push:
     branches:
       - testing
-  pull_request:
-    branches:
-      - main
 jobs:
   Test-application:
     runs-on: ubuntu-latest
