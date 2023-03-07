@@ -1,5 +1,11 @@
 name: Github Action for Application 1
-on: push
+on:
+  push:
+    branches:
+      - testing
+  pull_request:
+    branches:
+      - main
 jobs:
   Test-application:
     runs-on: ubuntu-latest
@@ -11,6 +17,6 @@ jobs:
         with:
           node-version: 18
       - name: Install dependencies
-        run: npm ci
+        run: npm --prefix Application\ 1 install
       - name: Run tests
-        run: npm run test
+        run: npm --prefix Application\ 1 run test
