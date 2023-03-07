@@ -5,7 +5,9 @@ on:
       - testing
   pull_request:
     branches:
-      - main
+      - testing
+    types:
+      - opened
 jobs:
   Test-application:
     runs-on: ubuntu-latest
