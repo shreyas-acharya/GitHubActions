@@ -1,5 +1,11 @@
 name: Github Action for Application 1
-on: push
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
 jobs:
   Test-application:
     runs-on: ubuntu-latest
