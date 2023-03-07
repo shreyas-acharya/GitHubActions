@@ -1,0 +1,27 @@
+name: Application 2 Github Actions
+on:
+  push:
+    branches:
+      - test
+jobs:
+  Lint-Test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get code
+        uses: actions/checkout@v3
+      - name: Install dependencies
+        run: npm --prefix Application\ 2 install
+      - name: Lint code
+        run: npm --prefix Application\ 2 run lint
+      - name: Test code
+        run: npm --prefix Application\ 2 run test
+  Deploy:
+    needs: Lint-Test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get code
+        uses: actions/checkout@v3
+      - name: Install dependencies
+        run: npm --prefix Application\ 2 install
+      - name: Build
+        run: npm --prefix Application\ 2 run build

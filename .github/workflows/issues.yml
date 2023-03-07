@@ -1,0 +1,14 @@
+name: Issues Actions
+on:
+  issues:
+      types:
+        - opened
+jobs:
+  Display:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Display issues number
+        run: |
+          echo Issues number $NUMBER
+        env:
+          NUMBER: ${{ github.event.issue.number }}"
