@@ -1,6 +1,8 @@
 name: Issues Actions
 on:
-  issue_comment:
+  issues:
+      types:
+        - opened
 jobs:
   Display:
     runs-on: ubuntu-latest
