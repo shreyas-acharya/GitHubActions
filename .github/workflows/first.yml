@@ -5,4 +5,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Greeting message
-      uses: echo "hello"
+      run: echo "hello"
