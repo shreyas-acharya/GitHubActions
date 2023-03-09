@@ -1,0 +1,23 @@
+name: Outputs
+on:
+  push:
+    branches:
+    - output
+jobs:
+  Output:
+    runs-on: ubuntu-latest
+    outputs:
+      value: ${{ steps.output.output.value }}
+    steps:
+      - name: Ouptut value
+        id: output
+        run: echo "value=hello" >> $GITHUB_OUTPUT
+
+  Read:
+    needs: Output
+    runs-on: ubuntu-latest
+    steps:
+      - name: Retrieve value
+        run: echo $VALUE
+        env:
+          VALUE: ${{ needs.output.outputs.value }}
