@@ -1,23 +1,13 @@
-name: Outputs
+name: Output
 on:
   push:
     branches:
-    - output
+      - output
 jobs:
-  Output:
-    runs-on: ubuntu-latest
-    outputs:
-      value: ${{ steps.output.outputs.value }}
-    steps:
-      - name: Ouptut value
-        id: output
-        run: echo "value=hello" >> $GITHUB_OUTPUT
-
-  Read:
-    needs: Output
+  CreateAndStore:
     runs-on: ubuntu-latest
     steps:
-      - name: Retrieve value
-        run: echo $VALUE
-        env:
-          VALUE: ${{ needs.output.outputs.value }}
+      - name: Get code
+        uses: actions/checkout@v3
+      - name: Run python code
+        run: python3 test.py
