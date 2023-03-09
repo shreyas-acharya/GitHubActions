@@ -1,0 +1,21 @@
+name: Artifact
+on:
+  push:
+    branches:
+      - artifact
+jobs:
+  Create:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create artifact
+        run: echo $JSON >> test.json
+        env:
+          JSON: ${{ toJSON(github) }}
+  Upload:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Upload artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: json
+          path: ./test.json
