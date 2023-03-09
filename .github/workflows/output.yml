@@ -21,14 +21,25 @@ jobs:
         name: python_output
         path: |
           output.txt
+  SaveChoice:
+    runs-on: ubuntu-latest
+    outputs:
+      choice: ${{ steps.user_input.output.choice}}
+    steps:
+      - name: Save user choice
+        id: user_input
+        run: |
+          echo "choice=verbose" >> $GITHUB_OUTPUT
   DownloadAndDisplay:
-    needs: CreateAndUpload
+    needs:
+      - CreateAndUpload
+      - SaveChoice
     runs-on: ubuntu-latest
     steps:
       - name: Download artifact
         uses: actions/download-artifact@v3
         with:
           name: python_output
-      - name: Display artifact
+      - name: Print message
         run: |
           cat output.txt
