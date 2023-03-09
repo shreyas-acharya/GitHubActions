@@ -12,6 +12,10 @@ jobs:
       - name: Ouptut value
         id: output
         run: echo "value=hello" >> $GITHUB_OUTPUT
+      - name: Output Steps
+        run: echo $STEPS
+        env:
+          STEPS: ${{ toJSON(steps) }}
 
   Read:
     needs: Output
