@@ -6,7 +6,7 @@ on:
 jobs:
   SaveChoice:
     outputs:
-      choice: ${{ steps.choice.output.choice}}
+      choice: ${{ steps.choice.outputs.choice}}
     runs-on: ubuntu-latest
     steps:
       - name: Save Choice
