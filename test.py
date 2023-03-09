@@ -12,4 +12,4 @@ table.add_row("2", "job2", "done")
 table.add_row("3", "job3", "not completed")
 table.add_row("4", "job4", "done")
 
-console.print(table)
+print(f'"value={console.print(table)}" >> $GITHUB_OUTPUT')

@@ -7,7 +7,7 @@ jobs:
   CreateAndStore:
     runs-on: ubuntu-latest
     outputs:
-      rich_output: ${{ steps.rich_output.output.value}}
+      rich_output: ${{ steps.store_output_step.output.value}}
     steps:
       - name: Get code
         uses: actions/checkout@v3
@@ -15,8 +15,8 @@ jobs:
         run: |
           pip3 install rich
       - name: Store ouptut
-        id: rich_output
-        run: echo value=python3 test.py >> $GITHUB_OUTPUT
+        id: store_output_step
+        run: python3 test.py
   ExtractAndDisplay:
     needs: CreateAndStore
     runs-on: ubuntu-latest
