@@ -1,3 +1,1 @@
-from art import *
-
-tprint("test", font="rnd-medium")
+print(f"value=verbose >> $GITHUB_OUTPUT")
