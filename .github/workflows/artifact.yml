@@ -1,0 +1,41 @@
+name: Artifact
+on:
+  push:
+    branches:
+      - artifact
+jobs:
+  CreateAndUpload:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create artifact
+        run: echo $JSON >> github.json
+        env:
+          JSON: ${{ toJSON(github) }}
+      - name: Upload artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: github
+          path: github.json
+      - name: Create artifact2
+        run: echo $JSON >> steps.json
+        env:
+          JSON: ${{ toJSON(steps) }}
+      - name: Upload artifact2
+        uses: actions/upload-artifact@v3
+        with:
+          name: steps
+          path: steps.json
+  Download:
+    needs: CreateAndUpload
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: github
+      - name: Download artifact2
+        uses: actions/download-artifact@v3
+        with:
+          name: steps
+      - name: Print filesystem
+        run: ls -la
