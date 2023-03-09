@@ -1,1 +1,1 @@
-print(f"value=verbose >> $GITHUB_OUTPUT")
+print(f"echo 'value=verbose' >> $GITHUB_OUTPUT")
