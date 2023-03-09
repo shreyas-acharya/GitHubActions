@@ -11,11 +11,14 @@ jobs:
         run: echo $JSON >> test.json
         env:
           JSON: ${{ toJSON(github) }}
+      - name: Print filesystem
+        run: ls -la
   Upload:
+    needs: Create
     runs-on: ubuntu-latest
     steps:
       - name: Upload artifact
         uses: actions/upload-artifact@v3
         with:
           name: json
-          path: ./test.json
+          path: test.json
