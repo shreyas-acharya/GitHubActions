@@ -6,11 +6,22 @@ on:
 jobs:
   CreateAndStore:
     runs-on: ubuntu-latest
+    outputs:
+      rich_output: ${{ steps.rich_output.output.value}}
     steps:
       - name: Get code
         uses: actions/checkout@v3
       - name: Install dependencies
         run: |
           pip3 install rich
-      - name: Run python code
-        run: python3 test.py
+      - name: Store ouptut
+        id: rich_output
+        run: echo value=python3 test.py >> $GITHUB_OUTPUT
+  ExtractAndDisplay:
+    needs: CreateAndStore
+    runs-on: ubuntu-latest
+    steps:
+      - name: Extract output
+        run: echo $OUTPUT
+        env:
+          OUTPUT: ${{ needs.CreateAndStore.outputs.rich_output }}
