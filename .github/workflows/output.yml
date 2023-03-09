@@ -1,0 +1,27 @@
+name: Output
+on:
+  push:
+    branches:
+      - output
+jobs:
+  SaveChoice:
+    outputs:
+      choice: ${{ steps.choice.outputs.choice}}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Save Choice
+        id: choice
+        run: echo "choice=verbose" >> $GITHUB_OUTPUT
+      - name: Print steps
+        run: echo $STEPS
+        env:
+          STEPS: ${{ toJSON(steps) }}
+  DisplayOutput:
+    needs: SaveChoice
+    runs-on: ubuntu-latest
+    if: ${{ needs.SaveChoice.outputs.choice }} == 'verbose'
+    steps:
+      - name: Display output
+        run: echo $OUTPUT
+        env:
+          OUTPUT: ${{ toJSON(needs) }}
