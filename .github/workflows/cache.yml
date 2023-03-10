@@ -21,6 +21,7 @@ jobs:
       - name: Run python script
         run: python3 Application\ 4/main.py
   Run2:
+    needs: Run1
     runs-on: ubuntu-latest
     steps:
       - name: Load code
