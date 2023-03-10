@@ -12,7 +12,7 @@ jobs:
     - name: Get file structure
       run: ls -la
     - name: Run Startup
-      uses: ./github/startup.yml
+      uses: ./.github/startup.yml
       with:
         username: "TEST"
   CheckOutput:
