@@ -1,0 +1,37 @@
+name: Cache
+on:
+  push:
+    branches:
+      - caching
+jobs:
+  Run1:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Load code
+        uses: actions/checkout@v3
+      - name: Caching dependencies
+        id: cache
+        uses: actions/cache@v3
+        with:
+          path: ~/.cache/pip/
+          key: key-${{ hashFiles('**/requirements.txt') }}
+      - name: Install dependencies
+        run: pip3 install -r Application\ 4/requirements.txt
+      - name: Run python script
+        run: python3 Application\ 4/main.py
+  Run2:
+    needs: Run1
+    runs-on: ubuntu-latest
+    steps:
+      - name: Load code
+        uses: actions/checkout@v3
+      - name: Caching dependencies
+        id: cache
+        uses: actions/cache@v3
+        with:
+          path: ~/.cache/pip/
+          key: key-${{ hashFiles('**/requirements.txt') }}
+      - name: Install dependencies
+        run: pip3 install -r Application\ 4/requirements.txt
+      - name: Run python script
+        run: python3 Application\ 4/main.py
