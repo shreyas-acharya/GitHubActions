@@ -18,7 +18,7 @@ jobs:
         with:
           path: |
             ~/.cache/pypoetry/virtualenvs/application_4-aR5EQOGT-py3.10/
-          key: key-${{ hashFiles(**/pyproject.toml)}}
+          key: key-${{ hashFiles('**/pyproject.toml') }}
       - name: Install dependencies
         if: steps.cache.outputs.cache-hit != 'true'
         run: poetry install --directory=Application\ 4/
@@ -37,7 +37,7 @@ jobs:
         uses: actions/cache@v3
         with:
           path: ~/.cache/pypoetry/virtualenvs/application_4-aR5EQOGT-py3.10/
-          key: key-${{ hashFiles(**/pyproject.toml)}}
+          key: key-${{ hashFiles('**/pyproject.toml') }}
       - name: Install dependencies
         if: steps.cache.outpus.cache-hit != 'true'
         run: poetry install --directory=Application\ 4/
