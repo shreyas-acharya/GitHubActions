@@ -12,7 +12,7 @@ jobs:
     - name: Get file structure
       run: ls -la .github
     - name: Run Startup
-      uses: ./.github/workflows/startup.yml
+      uses: shreyas-acharya/GitHubActions/.github/workflows/startup.yml@reusable_workflow
       with:
         username: "TEST"
   CheckOutput:
