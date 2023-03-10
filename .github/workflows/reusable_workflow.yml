@@ -13,4 +13,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Print output
-        run: echo '${{ needs.Startup.outputs.time }}'
+        run: echo $TIME
+        env:
+          TIME: ${{ needs.Startup.outputs.time }}
