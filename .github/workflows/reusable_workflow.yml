@@ -5,13 +5,6 @@ on:
       - reusable_workflow
 jobs:
   Startup:
-    runs-on: ubuntu-latest
-    steps:
-    - name: Get Code
-      uses: actions/checkout@v3
-    - name: Get file structure
-      run: ls -la .github
-    - name: Run Startup
       uses: shreyas-acharya/GitHubActions/.github/workflows/startup.yml@reusable_workflow
       with:
         username: "TEST"
