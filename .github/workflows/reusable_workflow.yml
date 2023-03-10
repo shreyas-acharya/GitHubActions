@@ -10,7 +10,7 @@ jobs:
     - name: Get Code
       uses: actions/checkout@v3
     - name: Run Startup
-      uses: ./.github/workflows/startup.yml
+      uses: shreyas-acharya/GitHubActions/.github/startup.yml
       with:
         username: "TEST"
   CheckOutput:
