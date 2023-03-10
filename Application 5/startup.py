@@ -1,6 +1,7 @@
 import os
 from art import *
 import datetime
+from subprocess import run
 
 USERNAME = os.getenv("USERNAME")
 STYLE = os.getenv("STYLE")
@@ -12,4 +13,4 @@ def startup(USERNAME):
 
 
 time = f"{startup(USERNAME)}"
-print(f"echo 'time={time}' >> $GITHUB_OUTPUT")
+run(['echo', f"'time={time}'", ">>", "$GITHUB_OUTPUT"], capture_output=True)
