@@ -1,0 +1,19 @@
+name: Reusable Workflow
+on:
+  push:
+    branches:
+      - reusable_workflow
+jobs:
+  Startup:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Run Startup
+      uses: ./startup.yml
+      with:
+        username: "TEST"
+  CheckOutput:
+    needs: Startup
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print output
+        run: echo '${{ needs.Startup.outputs.time }}'

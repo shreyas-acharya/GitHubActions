@@ -1,0 +1,32 @@
+name: Reusable Workflow
+on:
+  workflow_call:
+    inputs:
+      username:
+        type: string
+        required: true
+      style:
+        type: string
+        default: random
+    outputs:
+      time: ${{ jobs.Startup.outputs.time }}
+jobs:
+  Startup:
+    runs-on: ubuntu-latest
+    outputs:
+      time: ${{ steps.time.outputs.time }}
+    steps:
+      - name: Get code
+        uses: actions/checkout@v3
+      - name: Caching
+        id: cache
+        uses: actions/cache@v3
+        with:
+          path: ~/.cache/pip/
+          key: key-${{ hashFiles(**/requirements.txt) }}
+      - name: Install dependencies
+        run: pip3 install -r Application\ 5/requirements.txt
+      - name: Run python script
+        id: time
+        run: |
+          python3 Application\ 5/startup.py
