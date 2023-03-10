@@ -13,11 +13,10 @@ jobs:
         id: cache
         uses: actions/cache@v3
         with:
-          path: Application\ 4/modules
+          path: ~/.cache/pip/
           key: key-${{ hashFiles('**/requirements.txt') }}
       - name: Install dependencies
-        if: steps.cache.outputs.cache-hit != 'true'
-        run: pip3 install -r Application\ 4/requirements.txt -t Application\ 4/modules
+        run: pip3 install -r Application\ 4/requirements.txt
       - name: Run python script
         run: python3 Application\ 4/main.py
   Run2:
@@ -30,10 +29,9 @@ jobs:
         id: cache
         uses: actions/cache@v3
         with:
-          path: Application\ 4/modules
+          path: ~/.cache/pip/
           key: key-${{ hashFiles('**/requirements.txt') }}
       - name: Install dependencies
-        if: steps.cache.outputs.cache-hit != 'true'
-        run: pip3 install -r Application\ 4/requirements.txt -t Application\ 4/modules
+        run: pip3 install -r Application\ 4/requirements.txt
       - name: Run python script
         run: python3 Application\ 4/main.py
