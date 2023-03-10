@@ -16,6 +16,8 @@ jobs:
     outputs:
       time: ${{ steps.time.outputs.time }}
     steps:
+      - name: Get code
+        uses: actions/checkout@v3
       - name: Caching
         id: cache
         uses: actions/cache@v3
