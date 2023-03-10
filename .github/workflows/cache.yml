@@ -24,8 +24,9 @@ jobs:
         run: poetry install --directory=Application\ 4/
       - name: Run python script
         run: |
-          poetry run python main.py run1
+          poetry run python main.py run1 --directory=Application\ 4/
   Run2:
+    needs: Run1
     runs-on: ubuntu-latest
     steps:
       - name: Get code
@@ -42,4 +43,4 @@ jobs:
         if: steps.cache.outpus.cache-hit != 'true'
         run: poetry install --directory=Application\ 4/
       - name: Run python script
-        run: poetry run python main.py run2
+        run: poetry run python main.py run2 --directory=Application\ 4/
