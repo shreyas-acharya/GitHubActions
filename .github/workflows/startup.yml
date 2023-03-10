@@ -31,3 +31,5 @@ jobs:
         id: time
         run: |
           python3 Application\ 5/startup.py
+      - name: Display context
+        run: echo '${{ toJSON(steps) }}'
