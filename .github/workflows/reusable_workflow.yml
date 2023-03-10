@@ -5,9 +5,9 @@ on:
       - reusable_workflow
 jobs:
   Startup:
-      uses: shreyas-acharya/GitHubActions/.github/workflows/startup.yml@reusable_workflow
-      with:
-        username: "TEST"
+    uses: shreyas-acharya/GitHubActions/.github/workflows/startup.yml@reusable_workflow
+    with:
+      username: "TEST"
   CheckOutput:
     needs: Startup
     runs-on: ubuntu-latest
