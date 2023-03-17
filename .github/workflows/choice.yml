@@ -7,7 +7,7 @@ on:
         type: choice
         options:
           - "true"
-          - "true"
+          - "false"
     branches:
       - push
 jobs:
