@@ -1,0 +1,20 @@
+name: Choice
+on:
+  workflow_dispatch:
+    inputs:
+      Choice:
+        description: "testing"
+        type: choice
+        options:
+          - "true"
+          - "true"
+    branches:
+      - push
+jobs:
+  Job1:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Testing choice
+      run: echo $CHOICE
+      env:
+        CHOICE: ${{ inputs.Choice }}
