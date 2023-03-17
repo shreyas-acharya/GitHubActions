@@ -8,4 +8,4 @@ jobs:
     - name: Testing choice
       run: echo $CHOICE
       env:
-        CHOICE: ${{ github.ref == 'ref/heads/main' }}
+        CHOICE: ${{ github.ref }}
