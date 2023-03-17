@@ -2,6 +2,11 @@ name: Choice
 on:
   push:
 jobs:
+  Job0:
+    runs-on: ubuntu-latest
+    continue-on-error: ${{ github.ref == 'refs/heads/main' }}
+    steps:
+      - run: exit 1
   Job1:
     runs-on: ubuntu-latest
     steps:
