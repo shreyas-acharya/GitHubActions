@@ -1,15 +1,6 @@
 name: Choice
 on:
-  workflow_dispatch:
-    inputs:
-      Choice:
-        description: "testing"
-        type: choice
-        options:
-          - "true"
-          - "false"
-    branches:
-      - push
+  push:
 jobs:
   Job1:
     runs-on: ubuntu-latest
@@ -17,4 +8,4 @@ jobs:
     - name: Testing choice
       run: echo $CHOICE
       env:
-        CHOICE: ${{ inputs.Choice }}
+        CHOICE: ${{ github.ref == 'ref/heads/main' }}
