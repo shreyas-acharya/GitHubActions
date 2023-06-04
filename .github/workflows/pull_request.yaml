@@ -2,7 +2,7 @@ name: Testing pull request trigger
 on:
   push:
     branches:
-    - 'main'
+    - 'test/**'
 jobs:
   GetBranch:
     runs-on: ubuntu-latest
