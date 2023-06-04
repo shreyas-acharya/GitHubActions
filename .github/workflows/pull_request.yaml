@@ -1,6 +1,8 @@
 name: Testing pull request trigger
 on:
   push:
+    branches:
+    - 'main'
 jobs:
   GetBranch:
     runs-on: ubuntu-latest
