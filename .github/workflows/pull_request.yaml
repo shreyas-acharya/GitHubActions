@@ -6,5 +6,7 @@ on:
 jobs:
   GetBranch:
     runs-on: ubuntu-latest
+    env:
+      BRANCH: ${{ github.ref_name }}
     steps:
-    - run : echo "branch=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}"
+    - run : echo "branch=${BRANCH##*/}}"
