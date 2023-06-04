@@ -1,0 +1,8 @@
+name: Testing pull request trigger
+on:
+  push:
+jobs:
+  GetBranch:
+    runs-on: ubuntu-latest
+    steps:
+    - run : echo "branch=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}"
