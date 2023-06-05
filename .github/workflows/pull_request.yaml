@@ -10,3 +10,5 @@ jobs:
       BRANCH: ${{ github.ref_name }}
     steps:
     - run : echo "branch=${BRANCH##*/}}"
+    - uses: hashicorp/setup-terraform@v2
+    - run : terraform --version
