@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       BRANCH: ${{ github.ref_name }}
-      REGION: ${{ github.ref_name == "test/github-actions" && "us-east-1" || "us-east-2" }}
+      REGION: ${{ github.ref_name == 'test/github-actions' && 'us' || 'uk' }}
     steps:
     - run : echo "branch=${BRANCH##*/}}"
     - uses: hashicorp/setup-terraform@v2
