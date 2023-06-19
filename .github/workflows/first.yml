@@ -6,3 +6,4 @@ jobs:
     steps:
     - name: Greeting message
       run: echo "hello"
+    - run: echo ${{ github.ref_name }}
