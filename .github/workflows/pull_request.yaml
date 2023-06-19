@@ -8,4 +8,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - run : echo "branch=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}"
-    - run : echo "region=${fromJson('{"staging":"us-eas-1", "production":"us-east-2"}')["staging"]}"
+    - run : echo "region=${fromJson('{staging:"us-eas-1", production:"us-east-2"}')["staging"]}"
