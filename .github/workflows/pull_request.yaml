@@ -4,8 +4,23 @@ on:
     branches:
     - 'main'
 jobs:
-  GetBranch:
+  yourJobName:
+    name: Cool Job
     runs-on: ubuntu-latest
     steps:
-    - run : echo "branch=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}"
-    - run : echo "region=${fromJson('{staging:"us-eas-1", production:"us-east-2"}')["staging"]}"
+      - name: Get Machine Arc 
+        run: |
+          MACHINE_ARC_MAP=$(cat <<END
+          {
+            32: "i386", 
+            64: "x86_64",
+            999: ${{ secrets.SECRET_ARC }}
+          }
+          END
+          )
+          TARGET_ARC=$(echo $MACHINE_ARC_MAP | jq -r 'to_entries[] | select(.key=="${{ github.event.inputs.machine_architecture }}") | .value')
+          echo "TARGET_ARC=$TARGET_ARC" >> $GITHUB_ENV
+      
+      - name: Echo Selected value
+        run: |
+          echo ${env.TARGET_VAR}
