@@ -23,4 +23,4 @@ jobs:
       - name: Echo Selected value
         run: echo $TARGET_VAR
         env:
-          TARGET_VAR: ${{ env.TARGET_VAR }}
+          TARGET_VAR: ${{ env.TARGET_ARC }}
