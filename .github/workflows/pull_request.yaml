@@ -20,7 +20,7 @@ jobs:
           ENVIRONMENT_REGION_MAP=$(cat <<END
           {
             "staging": "us-east-2", 
-            "production": "us-east-1"
+            "main": "us-east-1"
           }
           END
           )
