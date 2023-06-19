@@ -13,7 +13,7 @@ jobs:
           MACHINE_ARC_MAP=$(cat <<END
           {
             "32": "i386", 
-            "64": "x86_64",
+            "64": "x86_64"
           }
           END
           )
