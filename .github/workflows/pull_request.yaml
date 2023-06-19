@@ -18,7 +18,7 @@ jobs:
           }
           END
           )
-          TARGET_ARC=$(echo $MACHINE_ARC_MAP | jq -r 'to_entries[] | select(.key=="${{ github.event.inputs.machine_architecture }}") | .value')
+          TARGET_ARC=$(echo $MACHINE_ARC_MAP | jq -r 'to_entries[] | select(.key=="32") | .value')
           echo "TARGET_ARC=$TARGET_ARC" >> $GITHUB_ENV
       
       - name: Echo Selected value
