@@ -22,4 +22,4 @@ jobs:
       
       - name: Echo Selected value
         run: |
-          echo ${env.TARGET_VAR}
+          echo ${{ env.TARGET_VAR }}
