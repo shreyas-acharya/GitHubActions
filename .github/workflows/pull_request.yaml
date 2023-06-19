@@ -24,7 +24,7 @@ jobs:
           }
           END
           )
-          REGION=$(echo $ENVIRONMENT_REGION_MAP | jq -r 'to_entries[] | select(.key==${{ env.environment }}) | .value')
+          REGION=$(echo $ENVIRONMENT_REGION_MAP | jq -r 'to_entries[] | select(.key=="${{ env.environment }}") | .value')
           echo "REGION=$REGION" >> $GITHUB_ENV
       - name: Echo Selected value
         run: echo $TARGET_VAR
