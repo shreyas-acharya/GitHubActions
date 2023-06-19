@@ -1,37 +1,49 @@
-name: Testing pull request trigger
+name: Automating deployment on Amazon Web Services
+
 on:
   push:
     branches:
-    - 'main'
+      - "main"
+      - "orchestrator-obb"
+  workflow_dispatch:
+
 jobs:
-  yourJobName:
-    name: Cool Job
+  Deploy_Code:
     runs-on: ubuntu-latest
     steps:
+      - name: Clone repository
+        uses: actions/checkout@v3
       - name: Get Environment
         run: |
           BRANCH_ENVIRONMENT_MAP=$(cat <<END
           {
-            "staging": "staging", 
+            "orchestrator-oob": "staging",
             "main": "production"
           }
           END
           )
           ENVIRONMENT=$(echo $BRANCH_ENVIRONMENT_MAP | jq -r 'to_entries[] | select(.key=="${{ github.ref_name }}") | .value')
-          echo "ENVIRONMENT=$ENVIRONMENT" >> $GITHUB_ENV 
+          echo "ENVIRONMENT=$ENVIRONMENT" >> $GITHUB_ENV
       - name: Get region
         run: |
           ENVIRONMENT_REGION_MAP=$(cat <<END
           {
-            "staging": "us-east-2", 
+            "staging": "us-east-2",
             "production": "us-east-1"
           }
           END
           )
           REGION=$(echo $ENVIRONMENT_REGION_MAP | jq -r 'to_entries[] | select(.key=="${{ env.ENVIRONMENT }}") | .value')
           echo "REGION=$REGION" >> $GITHUB_ENV
-      - name: Echo Selected value
-        run: echo $REGION $ENVIRONMENT
-        env:
-          REGION: ${{ env.REGION }}
-          ENVIRONMENT: ${{ env.ENVIRONMENT }}
+      - run: echo ${{ env.REGION }} ${{ env.ENVIRONMENT }}
+      - name: Install terraform
+        uses: hashicorp/setup-terraform@v2
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          role-to-assume: ""
+          aws-region: "${{ env.REGION }}"
+      - name: Run bash script
+        run: |
+          cd scripts
+          bash build.sh apply "${{ env.ENVIRONMENT }}" --ignore-checksum
