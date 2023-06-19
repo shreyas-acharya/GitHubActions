@@ -9,6 +9,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Get region
+        env:
+          ENVIRONMENT: ${{ env.environment }}
         run: |
           ENVIRONMENT_REGION_MAP=$(cat <<END
           {
@@ -17,7 +19,7 @@ jobs:
           }
           END
           )
-          REGION=$(echo $ENVIRONMENT_REGION_MAP | jq -r 'to_entries[] | select(.key=="${{ env.environment }}") | .value')
+          REGION=$(echo $ENVIRONMENT_REGION_MAP | jq -r 'to_entries[] | select(.key==$ENVIRONMENT) | .value')
           echo "REGION=$REGION" >> $GITHUB_ENV
       - name: Echo Selected value
         run: echo $TARGET_VAR
