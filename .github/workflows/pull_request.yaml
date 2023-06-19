@@ -8,6 +8,11 @@ jobs:
     name: Cool Job
     runs-on: ubuntu-latest
     steps:
+      - name: Extract environment
+        id: environment
+        env:
+          BRANCH: ${{ github.ref_name }}
+        run: echo "environment=${BRANCH%%/*}" >> $GITHUB_ENV
       - name: Get region
         env:
           ENVIRONMENT: ${{ env.environment }}
@@ -19,7 +24,7 @@ jobs:
           }
           END
           )
-          REGION=$(echo $ENVIRONMENT_REGION_MAP | jq -r 'to_entries[] | select(.key=="$ENVIRONMENT") | .value')
+          REGION=$(echo $ENVIRONMENT_REGION_MAP | jq -r 'to_entries[] | select(.key==${{ env.environment }}) | .value')
           echo "REGION=$REGION" >> $GITHUB_ENV
       - name: Echo Selected value
         run: echo $TARGET_VAR
