@@ -8,19 +8,18 @@ jobs:
     name: Cool Job
     runs-on: ubuntu-latest
     steps:
-      - name: Get Machine Arc 
+      - name: Get region
         run: |
-          MACHINE_ARC_MAP=$(cat <<END
+          ENVIRONMENT_REGION_MAP=$(cat <<END
           {
-            "32": "i386", 
-            "64": "x86_64"
+            "staging": "us-east-2", 
+            "production": "us-east-1"
           }
           END
           )
-          TARGET_ARC=$(echo $MACHINE_ARC_MAP | jq -r 'to_entries[] | select(.key=="32") | .value')
-          echo "TARGET_ARC=$TARGET_ARC" >> $GITHUB_ENV
-      
+          REGION=$(echo $ENVIRONMENT_REGION_MAP | jq -r 'to_entries[] | select(.key=="${{ env.environment }}") | .value')
+          echo "REGION=$REGION" >> $GITHUB_ENV
       - name: Echo Selected value
         run: echo $TARGET_VAR
         env:
-          TARGET_VAR: ${{ env.TARGET_ARC }}
+          TARGET_VAR: ${{ env.REGION }}
