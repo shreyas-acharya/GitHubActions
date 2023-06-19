@@ -21,5 +21,6 @@ jobs:
           echo "TARGET_ARC=$TARGET_ARC" >> $GITHUB_ENV
       
       - name: Echo Selected value
-        run: |
-          echo ${{ env.TARGET_VAR }}
+        run: echo $TARGET_VAR
+        env:
+          TARGET_VAR: ${{ env.TARGET_VAR }}
