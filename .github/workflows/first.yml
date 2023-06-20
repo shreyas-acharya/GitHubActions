@@ -1,9 +1,9 @@
 name: First Action
-on: workflow_dispatch
+on: 
+  workflow_dispatch:
+  pull_request:
 jobs:
   first_job:
     runs-on: ubuntu-latest
     steps:
-    - name: Greeting message
-      run: echo "hello"
-    - run: echo ${{ github.ref_name }}
+    - run: echo ${{ github.ref_name }}  
