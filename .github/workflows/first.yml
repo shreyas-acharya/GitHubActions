@@ -1,8 +1,9 @@
 name: First Action
-on: workflow_dispatch
+on: 
+ push:
+  branches: [main]
 jobs:
   first_job:
     runs-on: ubuntu-latest
     steps:
-    - name: Greeting message
-      run: echo "hello"
+    - run: echo ${{ github.ref_name }}  
