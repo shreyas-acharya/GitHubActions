@@ -1,0 +1,102 @@
+name: Infrastructure deployment on Amazon Web Services
+
+on:
+  push:
+    branches:
+      # - "main"
+      - "orchestrator-obb"
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: Execution Mode
+        type: choice
+        options:
+          - apply
+          - destroy
+      confirmation:
+        type: string
+        required: True
+
+permissions:
+  id-token: write
+  contents: read
+
+concurrency:
+  group: "vulcon-out-of-band-deployment"
+
+jobs:
+  Deploy_Infrastructure:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Validate inputs if triggered by 'workflow_dispatch'
+        if: github.event_name == 'workflow_dispatch'
+        run: test ${{ inputs.confirmation }} != $CONFIRMATION_TEXT && echo "Invalid Confirmation Text" && exit 1 || exit 0
+        env:
+          CONFIRMATION_TEXT: "confirmation text"
+      - name: Clone repository
+        uses: actions/checkout@v3
+
+      - name: Retrieve Current Working Environement (Staging/Production)
+        run: |
+          BRANCH_ENVIRONMENT_MAP=$(cat <<END
+          {
+            "orchestrator-obb": "staging",
+            "main": "production"
+          }
+          END
+          )
+          ENVIRONMENT=$(echo $BRANCH_ENVIRONMENT_MAP | jq -r 'to_entries[] | select(.key=="${{ github.ref_name }}") | .value')
+          echo "ENVIRONMENT=$ENVIRONMENT" >> $GITHUB_ENV
+
+      - name: Retrieve Region based on Working Environment
+        run: |
+          ENVIRONMENT_REGION_MAP=$(cat <<END
+          {
+            "staging": "us-east-2",
+            "production": "us-east-1"
+          }
+          END
+          )
+          REGION=$(echo $ENVIRONMENT_REGION_MAP | jq -r 'to_entries[] | select(.key=="${{ env.ENVIRONMENT }}") | .value')
+          echo "REGION=$REGION" >> $GITHUB_ENV
+
+      - run: echo ${{ env.REGION }} ${{ env.ENVIRONMENT }}
+
+      - name: Configure Version
+        run: |
+          sed -i "s/<COMMIT_SHA_HASH>/$(git rev-parse --short HEAD)/g" version
+          sed -i "s/<DATE>/$(date +'%d.%m.%Y')/g" version
+
+      - name: Setup Build Pre-Requisites
+        env:
+          SECURITY_BOT_SSH_KEY: ${{ secrets.SECURITY_BOT_SSH_KEY }}
+        run: |
+          mkdir -p ~/.ssh
+          chmod 700 ~/.ssh
+          echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
+          echo "$SECURITY_BOT_SSH_KEY" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          eval $(ssh-agent)
+          ssh-add ~/.ssh/id_rsa
+
+      - name: Install terraform
+        uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: 1.4.6
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          role-to-assume: ${{ secrets.SECURITY_AWS_ACCOUNT_ROLE_ARN }}
+          aws-region: "${{ env.REGION }}"
+
+      - name: Deploy infrastructure
+        run: |
+          cd scripts
+          bash build.sh $MODE "${{ env.ENVIRONMENT }}" --ignore-checksum --auto-approve
+        env:
+          MODE: ${{ inputs.mode || 'apply' }}
+
+      - name: Remove Pre-Requisites
+        run: |
+          rm -rf ~/.ssh
