@@ -29,4 +29,4 @@ jobs:
           versions=(latest)
           current=""
           for value in ${parts[@]}; do [[ -z $current ]] && current=$value || current+=".$value" ; versions=(${versions[@]} "$current"); done
-          for tag in ${versions[@]}; do ./regctl image copy cgr.dev/python:latest docker.io/shreyasacharya14/python:$tag; done
+          for tag in ${versions[@]}; do ./regctl image copy cgr.dev/chainguard/python:latest docker.io/shreyasacharya14/python:$tag; done
