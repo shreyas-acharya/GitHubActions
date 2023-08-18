@@ -40,7 +40,7 @@ jobs:
           for value in ${parts[@]}; do [[ -z $current ]] && current=$value || current+=".$value" ; versions=(${versions[@]} "$current"); done
           for tag in ${versions[@]}; do ./regctl image copy cgr.dev/chainguard/ruby:latest docker.io/shreyasacharya14/ruby:$tag; done
 
-        name: Mirror Static Images
+      - name: Mirror Static Images
         run: |
           versions=(latest)
           for tag in ${versions[@]}; do ./regctl image copy cgr.dev/chainguard/static:latest docker.io/shreyasacharya14/static:$tag; done
