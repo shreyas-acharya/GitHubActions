@@ -17,12 +17,21 @@ jobs:
           sudo apt install curl
           curl -L https://github.com/regclient/regclient/releases/latest/download/regctl-linux-amd64 >regctl
           chmod 755 regctl
+          
+      - name: Log in to docker hub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
 
       - name: Mirror Python Images
         run: |
           version=$(docker run --rm cgr.dev/chainguard/python:latest --version | grep -oP "[0-9]+\.[0-9]+\.[0-9]+")
           IFS="." read -r -a parts <<< $version
-          versions=()
+          versions=(latest)
           current=""
           for value in ${parts[@]}; do [[ -z $current ]] && current=$value || current+=".$value" ; versions=(${versions[@]} "$current"); done
-          echo ${versions[@]}
+          for tag in ${versions[@]}; do ./regctl image copy cgr.dev/chainguard/python:latest
+          ./regctl registry config
+          
