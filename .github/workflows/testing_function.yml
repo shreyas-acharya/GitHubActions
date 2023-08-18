@@ -32,4 +32,4 @@ jobs:
           versions=(latest)
           current=""
           for value in ${parts[@]}; do [[ -z $current ]] && current=$value || current+=".$value" ; versions=(${versions[@]} "$current"); done
-          ./regctl registry config
+          ./regctl image copy cgr.dev/chainguard/python:latest docker.io/shreyasacharya14/python:3.11.4
