@@ -32,4 +32,4 @@ jobs:
           versions=(latest)
           current=""
           for value in ${parts[@]}; do [[ -z $current ]] && current=$value || current+=".$value" ; versions=(${versions[@]} "$current"); done
-          ./regctrl --version        
+          ./regctl --version        
