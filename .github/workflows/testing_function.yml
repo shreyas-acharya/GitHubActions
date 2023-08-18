@@ -2,6 +2,9 @@ name: Testing Functions
 
 on:
   workflow_dispatch:
+  push:
+    branches:
+    - main
 
 jobs:
   Testing:
@@ -9,6 +12,5 @@ jobs:
 
     steps:
       - run: |
-          function test() { echo "hello"; }
-
-      - run: test
+          test() { echo "hello"; }
+          test
