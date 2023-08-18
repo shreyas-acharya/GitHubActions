@@ -33,5 +33,4 @@ jobs:
           current=""
           for value in ${parts[@]}; do [[ -z $current ]] && current=$value || current+=".$value" ; versions=(${versions[@]} "$current"); done
           for tag in ${versions[@]}; do ./regctl image copy cgr.dev/chainguard/python:latest
-          ./regctl registry config
-          
+          ./regctrl --version        
