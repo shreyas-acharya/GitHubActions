@@ -1,0 +1,16 @@
+name: Reusable Workflow
+on:
+  workflow_call:
+    inputs:
+      username:
+        description: "Username"
+        default: "Default User"
+        required: false
+        type: string
+
+jobs:
+  print-user:
+    if: ${{ inputs.username }}
+    runs-on: ubuntu-latest
+    steps:
+      - run : echo "${{ inputs.username }}"
