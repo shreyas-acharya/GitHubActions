@@ -1,18 +1,16 @@
 name: Reusable Workflow
 on:
-  push:
-    branches:
-      - reusable_workflow
+  workflow_call:
+    inputs:
+      username:
+        description: "Username"
+        default: "Default User"
+        required: false
+        type: string
+
 jobs:
-  Startup:
-    uses: shreyas-acharya/GitHubActions/.github/workflows/startup.yml@reusable_workflow
-    with:
-      username: "TEST"
-  CheckOutput:
-    needs: Startup
+  print-user:
+    if: ${{ inputs.username }}
     runs-on: ubuntu-latest
     steps:
-      - name: Print output
-        run: echo $TIME
-        env:
-          TIME: ${{ needs.Startup.outputs.time }}
+      - run : echo "${{ inputs.username }}"
