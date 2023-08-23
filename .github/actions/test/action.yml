@@ -10,7 +10,7 @@ on:
 
 jobs:
   print-user:
-    if: ${{ inputs.username }}
+    if: ${{ github.event.inputs.username }}
     runs-on: ubuntu-latest
     steps:
-      - run : echo "${{ inputs.username }}"
+      - run : echo "${{ github.event.inputs.username }}"
