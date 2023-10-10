@@ -1,0 +1,12 @@
+name: Testing Environment Variables
+
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  Test:
+    runs-on: ubuntu-latest
+    steps:
+    - run: echo "TEST=test" > $GITHUB_ENV
+    - run: echo ${env.TEST}
