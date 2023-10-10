@@ -8,5 +8,6 @@ jobs:
   Test:
     runs-on: ubuntu-latest
     steps:
+    - uses: actions/checkout@v2
     - run: echo "TEST=test" > $GITHUB_ENV
-    - run: echo ${{ env.TEST }}
+    - run: bash test.sh
