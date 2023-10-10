@@ -3,7 +3,6 @@ name: Cron Job to Mirror Chainguard Images
 
 on:
   workflow_dispatch:
-  push:
 
 jobs:
   Mirror-Images:
