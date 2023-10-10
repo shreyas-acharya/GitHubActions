@@ -20,27 +20,34 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-
-      - name: Mirror Python Images
-        run: |
-          version=$(docker run --rm cgr.dev/chainguard/python:latest --version | grep -oP "[0-9]+\.[0-9]+\.[0-9]+")
+      - run: |
+          version=$(docker run --rm cgr.dev/chainguard/$IMAGE:latest -version | grep -oP "[0-9]+\.[0-9]+\.[0-9]+")
           IFS="." read -r -a parts <<< $version
           versions=(latest)
           current=""
           for value in ${parts[@]}; do [[ -z $current ]] && current=$value || current+=".$value" ; versions=(${versions[@]} "$current"); done
-          for tag in ${versions[@]}; do ./regctl image copy cgr.dev/chainguard/python:latest docker.io/shreyasacharya14/python:$tag; done
+          echo ${version[@]}
+          # for tag in ${versions[@]}; do ./regctl image copy cgr.dev/chainguard/$IMAGE:latest $ECR_REGISTRY/$ECR_REGISTRY_ALIAS/$ECR_NAMESPACE/$IMAGE:$tag; done
 
-      - name: Mirror Ruby Images
-        run: |
-          version=$(docker run --rm cgr.dev/chainguard/ruby:latest --version | grep -oP "[0-9]+\.[0-9]+\.[0-9]+")
-          IFS="." read -r -a parts <<< $version
-          versions=(latest)
-          current=""
-          for value in ${parts[@]}; do [[ -z $current ]] && current=$value || current+=".$value" ; versions=(${versions[@]} "$current"); done
-          for tag in ${versions[@]}; do ./regctl image copy cgr.dev/chainguard/ruby:latest docker.io/shreyasacharya14/ruby:$tag; done
+      # - name: Mirror Python Images
+      #   run: |
+      #     version=$(docker run --rm cgr.dev/chainguard/python:latest --version | grep -oP "[0-9]+\.[0-9]+\.[0-9]+")
+      #     IFS="." read -r -a parts <<< $version
+      #     versions=(latest)
+      #     current=""
+      #     for value in ${parts[@]}; do [[ -z $current ]] && current=$value || current+=".$value" ; versions=(${versions[@]} "$current"); done
+      #     for tag in ${versions[@]}; do ./regctl image copy cgr.dev/chainguard/python:latest docker.io/shreyasacharya14/python:$tag; done
 
-      - name: Mirror Static Images
-        run: |
-          versions=(latest)
-          for tag in ${versions[@]}; do ./regctl image copy cgr.dev/chainguard/static:latest docker.io/shreyasacharya14/static:$tag; done
+      # - name: Mirror Ruby Images
+      #   run: |
+      #     version=$(docker run --rm cgr.dev/chainguard/ruby:latest --version | grep -oP "[0-9]+\.[0-9]+\.[0-9]+")
+      #     IFS="." read -r -a parts <<< $version
+      #     versions=(latest)
+      #     current=""
+      #     for value in ${parts[@]}; do [[ -z $current ]] && current=$value || current+=".$value" ; versions=(${versions[@]} "$current"); done
+      #     for tag in ${versions[@]}; do ./regctl image copy cgr.dev/chainguard/ruby:latest docker.io/shreyasacharya14/ruby:$tag; done
 
+      # - name: Mirror Static Images
+      #   run: |
+      #     versions=(latest)
+      #     for tag in ${versions[@]}; do ./regctl image copy cgr.dev/chainguard/static:latest docker.io/shreyasacharya14/static:$tag; done
