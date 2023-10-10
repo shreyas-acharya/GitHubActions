@@ -22,11 +22,7 @@ jobs:
       #     password: ${{ secrets.DOCKER_PASSWORD }}
 
       - run: |
-          version=$(docker run --rm cgr.dev/chainguard/nginx:latest -version)
-          echo "--------"
-          echo $version
-          exit 0
-          version=$(docker run --rm cgr.dev/chainguard/nginx:latest -version | grep -oP "[0-9]+\.[0-9]+\.[0-9]+")
+          version=$(docker run --rm cgr.dev/chainguard/nginx:latest -version 2>&1 | grep -oP "[0-9]+\.[0-9]+\.[0-9]+")
           echo $version
           exit 0
           IFS="." read -r -a parts <<< $version
