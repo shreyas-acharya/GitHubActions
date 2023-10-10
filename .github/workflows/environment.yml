@@ -9,4 +9,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - run: echo "TEST=test" > $GITHUB_ENV
-    - run: echo ${env.TEST}
+    - run: echo ${{ env.TEST }}
