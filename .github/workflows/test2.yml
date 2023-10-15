@@ -1,0 +1,16 @@
+name: Testing Concurrency 2
+
+on:
+  push:
+    branches:
+    - main
+
+concurrency:
+  group: "testing-concurrency"
+  cancel-in-progress: false
+
+jobs:
+  Print:
+    runs-on: ubuntu-latest
+    steps:
+    - run: echo "hi"
