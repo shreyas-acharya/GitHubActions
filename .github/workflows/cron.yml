@@ -14,7 +14,7 @@ on:
 jobs:
   Testing:
     env:
-      ENVIRONMENT: ${{ github.event.inputs.envrionment || 'production' }}
+      ENVIRONMENT: ${{ github.event.inputs.environment || 'production' }}
     runs-on: ubuntu-latest
     steps:
       - name: Testing
