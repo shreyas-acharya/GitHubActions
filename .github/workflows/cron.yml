@@ -13,9 +13,12 @@ on:
 
 jobs:
   Testing:
+    env:
+      ENVIRONMENT: ${{ github.event.inputs.envrionment || 'production' }}
     runs-on: ubuntu-latest
     steps:
       - name: Testing
+        if: ${ENVIRONMENT} == 'production'
         run: |
           echo "$ENVIRONMENT"
         env:
