@@ -21,5 +21,3 @@ jobs:
         if: ${ENVIRONMENT} == 'production'
         run: |
           echo "$ENVIRONMENT"
-        env:
-          ENVIRONMENT: ${{ github.event.inputs.environment || 'production' }}
