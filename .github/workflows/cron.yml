@@ -1,0 +1,22 @@
+name: Testing cron job
+
+on:
+  schedule:
+    - cron: '*/1 * ? * *'
+  workflow_dispatch:
+    inputs:
+      environment:
+        required: true
+        type: choice
+        default: 'staging'
+        options: ['staging', 'production']
+
+jobs:
+  Testing:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Testing
+        run: |
+          echo "$ENVIRONMENT"
+        env:
+          ENVIRONMENT: ${{ github.event.inputs.environment }}
