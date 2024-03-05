@@ -18,6 +18,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Testing
-        if: ${ENVIRONMENT} == 'production'
+        if: env.ENVIRONMENT == 'production'
         run: |
           echo "$ENVIRONMENT"
